@@ -1,20 +1,22 @@
 //your code here
 
-const bands = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
-
-// Define the strip function to remove common words from band names
-function strip(word) {
-const regex = /^(a |the |an )/i;
-return word.replace(regex, '').trim();
+let bandNames=['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal']
+let articles = ['A', 'AN', 'THE']
+ 
+	bandNames.sort((a,b) => (strip(a)> strip(b))? 1: -1)
+	const ref= document.getElementsByTagName("ul")[0] 
+	for (let i=0;i<bandNames.length; i++){
+		const li = document.createElement("li")
+		li.innerText= bandNames [i]
+		ref.append(li)
+	}
+function strip(word){
+	let arr = word.split(" ")
+	let s=""
+	for(let i=0;i<arr.length;i++){
+if(articles.indexOf(arr[i].toUpperCase()) === -1){
+	s=s+arr[i]
 }
-
-// Sort the bands array using the strip function to ignore common words
-const sortedBands = bands.sort((a, b) => (strip(a) > strip(b)) ? 1 : -1);
-
-// Update the DOM with the sorted band names
-const bandList = document.getElementById('band');
-sortedBands.forEach(band => {
-const listItem = document.createElement('li');
-listItem.textContent = band;
-bandList.appendChild(listItem);
-});
+}
+return s.trim()
+}
